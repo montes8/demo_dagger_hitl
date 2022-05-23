@@ -1,13 +1,25 @@
 package com.challenge.demodaggerhilt
 
-import android.content.Context
+
+import android.util.Log
 import javax.inject.Inject
-import javax.inject.Singleton
 
-class AppNetwork @Inject constructor(private val api: ServiceApi,context: Context) : IAppRepositoryNetwork, BaseNetwork(context){
+class AppNetwork @Inject constructor(private val serviceApi : ServiceApi){
 
-    override suspend fun getUser(): User {
-        TODO("Not yet implemented")
+    suspend fun getUser(): User {
+      /*  Log.d("TAGUSER","getUserAppNetwork")
+        val response = serviceApi.login(UserResponse("gabbi@gmail.com","gabbi"))
+        val result = response.getResultOrThrowException()
+        Log.d("TAGUSER","getResultOrThrowException")
+*/
+        val response = serviceApi.login(UserResponse("gabbi@gmail.com","gabbi"))
+        var data : User? = null
+        if (response.isSuccessful) {
+            Log.d("TAGUSER","getUserisSuccessful")
+            data = response.validateBody().toUser()
+        }
+        Log.d("TAGUSER","getUserisError")
+        return data?: throw response.errorBody()?.toCompleteErrorModel(response.code())?.getException() ?: Exception()
     }
 
 }

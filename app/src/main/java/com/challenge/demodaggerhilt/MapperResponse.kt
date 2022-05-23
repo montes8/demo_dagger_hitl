@@ -1,5 +1,6 @@
 package com.challenge.demodaggerhilt
 
+import android.util.Log
 import com.google.gson.Gson
 import okhttp3.Headers
 import okhttp3.ResponseBody
@@ -54,6 +55,7 @@ fun <T> MapperResponse<T>.getResultOrThrowException(): T = when (this) {
     is MapperResponse.Success -> data
 
     is MapperResponse.Failure.Exception -> {
+        Log.d("TAGUSER","MapperResponseFailure")
         when (exception) {
             is UnknownHostException -> throw NetworkException()
             else -> throw GenericException()
@@ -61,6 +63,7 @@ fun <T> MapperResponse<T>.getResultOrThrowException(): T = when (this) {
     }
 
     is MapperResponse.Failure.Error -> {
+        Log.d("TAGUSER","MapperResponseFailure.Error")
         if (errorBody != null) {
             var completeErrorModel: CompleteErrorModel? = null
             try {

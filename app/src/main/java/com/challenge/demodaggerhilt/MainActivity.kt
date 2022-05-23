@@ -1,7 +1,5 @@
 package com.challenge.demodaggerhilt
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels

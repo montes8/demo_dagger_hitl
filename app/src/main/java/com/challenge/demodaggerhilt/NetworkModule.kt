@@ -1,6 +1,7 @@
 package com.challenge.demodaggerhilt
 
 import android.content.Context
+import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,19 +15,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
 
     @Provides
-    fun provideBaseUrl() = "https://api.themoviedb.org/3/movie/"
+    fun provideBaseUrl() = BuildConfig.BASE_URL
+
+    @Singleton
+    @Provides
+    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()
+        .apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
 
     @Provides
     @Singleton
     fun providerOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
-        apiInterceptor: ApiInterceptor,context: Context
+        httpLoggingInterceptor: HttpLoggingInterceptor,apiInterceptor : ApiInterceptor,context: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -34,32 +42,37 @@ object DataModule {
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(apiInterceptor)
+            .addInterceptor(ChuckInterceptor(context))
             .build()
     }
 
 
-    @Provides
     @Singleton
-    fun provideRetrofit(baseUrl: String, client: OkHttpClient
+    @Provides
+    fun provideRetrofit(baseUrl: String
     ): Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(baseUrl)
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
             .build()
     }
 
-
-    @Provides
     @Singleton
+    @Provides
+    fun provideHeaderInterceptor(context: Context): ApiInterceptor {
+        return ApiInterceptor(context)
+
+    }
+    @Singleton
+    @Provides
     fun provideApiService(retrofit: Retrofit) = retrofit.create(ServiceApi::class.java)
 
-
-    @Provides
     @Singleton
-    fun provideApiHelper(iAppRepositoryNetwork: IAppRepositoryNetwork): IAppRepositoryNetwork = iAppRepositoryNetwork
-
+    @Provides
+    fun provideContext(application: ApplicationDemoHilt): Context {
+        return application.applicationContext
+    }
 
 }
 
@@ -68,10 +81,11 @@ class ApiInterceptor(private val context: Context) : Interceptor {
         var request = chain.request()
         val builder = request.newBuilder()
             .addHeader("Content-Type", CONTENT_TYPE)
-            //.header("x-os", PLATFORM)
+            .addHeader(DEVICE_MODEL, "${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}")
             .addHeader("x-density", getDensity(context).toString())
             .addHeader("x-width", getWidth(context).toString())
             .addHeader("x-height", getHeight(context).toString())
+            //.header("x-os", PLATFORM)
 
         request = builder.build()
         return chain.proceed(request)

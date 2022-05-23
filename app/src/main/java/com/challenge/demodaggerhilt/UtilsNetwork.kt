@@ -4,6 +4,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
+import android.util.Log
+import com.google.gson.Gson
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 fun getDensity(context: Context): Float {
 
@@ -31,4 +35,18 @@ fun Context?.isAirplaneModeActive(): Boolean {
     return this?.let {
         return Settings.Global.getInt(it.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0) != 0
     } ?: false
+}
+
+
+fun <T> Response<T>.validateBody() : T {
+    this.body()?.let {
+        return it
+    } ?: throw NullPointerException()
+}
+
+fun ResponseBody?.toCompleteErrorModel(code : Int) : CompleteErrorModel? {
+    return this?.let {
+        Log.d("TAGUSER","toCompleteErrorModel")
+        return  if (code == 407) throw UnAuthorizedException () else Gson().fromJson(it.string(), CompleteErrorModel::class.java)
+    } ?: CompleteErrorModel()
 }

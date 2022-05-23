@@ -1,5 +1,6 @@
 package com.challenge.demodaggerhilt
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +14,10 @@ class AppViewModel @Inject constructor(private val appUseCase: AppUseCase): Base
     private val _successUserLiveData    = MutableLiveData<User>()
 
     fun getUser(){
+        Log.d("TAGUSER","getUserAppView")
             executeSuspendNotProgress {
                 val response = appUseCase.getUser()
+                Log.d("TAGUSER","getUser")
                 _successUserLiveData.postValue(response)
             }
     }

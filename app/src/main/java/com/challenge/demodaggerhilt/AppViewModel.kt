@@ -17,7 +17,7 @@ class AppViewModel @Inject constructor(private val appUseCase: AppUseCase): Base
         Log.d("TAGUSER","getUserAppView")
             executeSuspendNotProgress {
                 val response = appUseCase.getUser()
-                Log.d("TAGUSER","getUser")
+                Log.d("TAGUSER","getUsersucess")
                 _successUserLiveData.postValue(response)
             }
     }

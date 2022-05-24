@@ -5,6 +5,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
@@ -25,16 +27,14 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()
-        .apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG)HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
+    }
 
-
-    @Provides
     @Singleton
+    @Provides
     fun providerOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,apiInterceptor : ApiInterceptor,context: Context
+        httpLoggingInterceptor: HttpLoggingInterceptor,apiInterceptor : Interceptor,@ApplicationContext appContext: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -42,26 +42,26 @@ object DataModule {
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(apiInterceptor)
-            .addInterceptor(ChuckInterceptor(context))
+            .addInterceptor(ChuckInterceptor(appContext))
             .build()
     }
 
-
     @Singleton
     @Provides
-    fun provideRetrofit(baseUrl: String
+    fun provideRetrofit(okHttpClient: OkHttpClient,baseUrl: String
     ): Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
+            .client(okHttpClient)
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideHeaderInterceptor(context: Context): ApiInterceptor {
-        return ApiInterceptor(context)
+    fun provideHeaderInterceptor(@ApplicationContext appContext: Context): Interceptor {
+        return ApiInterceptor(appContext)
 
     }
     @Singleton
@@ -76,7 +76,7 @@ object DataModule {
 
 }
 
-class ApiInterceptor(private val context: Context) : Interceptor {
+class ApiInterceptor@Inject constructor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val builder = request.newBuilder()

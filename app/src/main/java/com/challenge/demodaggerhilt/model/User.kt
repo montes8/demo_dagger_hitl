@@ -1,6 +1,7 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.model
 
 import android.os.Parcelable
+import com.challenge.demodaggerhilt.utils.EMPTY
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

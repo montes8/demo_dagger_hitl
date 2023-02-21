@@ -1,6 +1,10 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.adapter
 
 import android.util.Log
+import com.challenge.demodaggerhilt.repository.entity.response.CompleteErrorModel
+import com.challenge.demodaggerhilt.repository.exception.GenericException
+import com.challenge.demodaggerhilt.repository.exception.NetworkException
+import com.challenge.demodaggerhilt.repository.exception.UnAuthorizedException
 import com.google.gson.Gson
 import okhttp3.Headers
 import okhttp3.ResponseBody

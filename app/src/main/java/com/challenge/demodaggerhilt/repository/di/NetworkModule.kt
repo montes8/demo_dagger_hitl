@@ -1,6 +1,11 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.di
 
 import android.content.Context
+import com.challenge.demodaggerhilt.BuildConfig
+import com.challenge.demodaggerhilt.application.ApplicationDemoHilt
+import com.challenge.demodaggerhilt.repository.ServiceApi
+import com.challenge.demodaggerhilt.repository.adapter.CoroutinesResponseCallAdapterFactory
+import com.challenge.demodaggerhilt.utils.*
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides

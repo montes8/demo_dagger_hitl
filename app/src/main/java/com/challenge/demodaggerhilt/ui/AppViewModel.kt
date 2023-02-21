@@ -1,8 +1,10 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.challenge.demodaggerhilt.model.User
+import com.challenge.demodaggerhilt.usecases.AppUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

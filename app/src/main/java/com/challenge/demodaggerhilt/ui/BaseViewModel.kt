@@ -1,4 +1,4 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

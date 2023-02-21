@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.adapter
 
 import retrofit2.Call
 import retrofit2.CallAdapter
@@ -25,7 +25,6 @@ class CoroutinesResponseCallAdapterFactory private constructor() : CallAdapter.F
 
                     MapperResponse::class.java -> {
                         val resultType = getParameterUpperBound(0, callType as ParameterizedType)
-                        // CoroutinesResponseCallAdapter(resultType)
                         ApiResponseCallAdapter<Any>(resultType)
                     }
                     else -> null

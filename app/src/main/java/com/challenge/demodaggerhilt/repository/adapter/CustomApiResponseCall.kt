@@ -1,6 +1,6 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.adapter
 
-import com.challenge.demodaggerhilt.MapperResponse.Companion.toApiResponse
+import com.challenge.demodaggerhilt.repository.adapter.MapperResponse.Companion.toApiResponse
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call

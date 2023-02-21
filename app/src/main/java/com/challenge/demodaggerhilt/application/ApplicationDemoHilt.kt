@@ -1,4 +1,4 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

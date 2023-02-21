@@ -1,4 +1,4 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,10 +1,12 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
 import android.util.Log
+import com.challenge.demodaggerhilt.repository.entity.response.CompleteErrorModel
+import com.challenge.demodaggerhilt.repository.exception.UnAuthorizedException
 import com.google.gson.Gson
 import okhttp3.ResponseBody
 import retrofit2.Response

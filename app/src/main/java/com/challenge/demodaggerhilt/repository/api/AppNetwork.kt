@@ -1,7 +1,11 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.api
 
 
 import android.util.Log
+import com.challenge.demodaggerhilt.model.User
+import com.challenge.demodaggerhilt.repository.ServiceApi
+import com.challenge.demodaggerhilt.repository.adapter.getResultOrThrowException
+import com.challenge.demodaggerhilt.repository.entity.response.UserResponse
 import javax.inject.Inject
 
 class AppNetwork @Inject constructor(private val serviceApi : ServiceApi){

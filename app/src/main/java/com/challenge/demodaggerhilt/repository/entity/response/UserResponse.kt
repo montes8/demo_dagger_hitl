@@ -1,5 +1,7 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.entity.response
 
+import com.challenge.demodaggerhilt.model.User
+import com.challenge.demodaggerhilt.utils.EMPTY
 import com.google.gson.annotations.SerializedName
 
 class UserResponse (

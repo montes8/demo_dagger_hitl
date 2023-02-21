@@ -1,4 +1,4 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.repository.adapter
 
 import retrofit2.Call
 import retrofit2.CallAdapter

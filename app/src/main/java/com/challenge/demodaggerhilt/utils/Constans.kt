@@ -1,4 +1,4 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.utils
 
 const val EMPTY = ""
 const val TIMEOUT = 60L

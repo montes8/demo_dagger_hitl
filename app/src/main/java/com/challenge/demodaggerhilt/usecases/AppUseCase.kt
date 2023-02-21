@@ -1,5 +1,6 @@
-package com.challenge.demodaggerhilt
+package com.challenge.demodaggerhilt.usecases
 
+import com.challenge.demodaggerhilt.repository.api.AppNetwork
 import javax.inject.Inject
 
 

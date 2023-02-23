@@ -24,7 +24,10 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun setUpView() {
-        viewModel.getUser()
+        binding.btnLogin.setOnClickListener {
+            viewModel.getUser(binding.editEmail.text.toString(),binding.editPassword.text.toString())
+        }
+
     }
 
     override fun observeViewModel() {

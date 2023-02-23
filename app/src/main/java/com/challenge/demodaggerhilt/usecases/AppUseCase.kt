@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 
 class AppUseCase @Inject constructor(private val iAppRepositoryNetwork: AppNetwork) {
-     suspend fun getUser() = iAppRepositoryNetwork.getUser()
+     suspend fun getUser(email:String,pass:String) = iAppRepositoryNetwork.getUser(email,pass)
 }

@@ -15,10 +15,10 @@ class AppViewModel @Inject constructor(private val appUseCase: AppUseCase): Base
     val successUserLiveData        : LiveData<User> get()   = _successUserLiveData
     private val _successUserLiveData    = MutableLiveData<User>()
 
-    fun getUser(){
+    fun getUser(email:String,pass:String){
         Log.d("TAGUSER","getUserAppView")
             executeSuspendNotProgress {
-                val response = appUseCase.getUser()
+                val response = appUseCase.getUser(email,pass)
                 Log.d("TAGUSER","getUsersucess")
                 _successUserLiveData.postValue(response)
             }

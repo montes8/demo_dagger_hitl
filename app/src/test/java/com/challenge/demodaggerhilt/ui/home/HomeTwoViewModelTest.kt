@@ -20,14 +20,12 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class HomeTwoViewModelTest{
 
-
     @Mock lateinit var appUseCase: DataHiltUseCase
 
     @Mock lateinit var observer: Observer<List<String>>
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
-
 
     private val dispatcher = TestCoroutineDispatcher()
 

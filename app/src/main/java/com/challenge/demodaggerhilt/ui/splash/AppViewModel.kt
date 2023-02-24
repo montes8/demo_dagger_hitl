@@ -1,6 +1,5 @@
 package com.challenge.demodaggerhilt.ui.splash
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.challenge.demodaggerhilt.model.User
@@ -32,7 +31,7 @@ class AppViewModel @Inject constructor(private val appUseCase: AppUseCase,
     }
 
     fun getUserTwo(email : String, password : String){
-        executeSuspendNotProgress {
+        executeSuspendNotProgress{
             val response = appUseCase.getUserTwo()
             _successUserTwoLiveData.postValue(response)
         }

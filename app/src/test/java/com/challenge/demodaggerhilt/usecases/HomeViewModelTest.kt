@@ -1,7 +1,7 @@
 package com.challenge.demodaggerhilt.usecases
 
+import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.ui.home.HomeViewModel
-import com.challenge.demodaggerhilt.utils.CoroutinesTestRule
 import com.challenge.demodaggerhilt.utils.FakeDataNetwork
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.flow.collect
@@ -10,10 +10,11 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
+
 class HomeViewModelTest {
 
     @get:Rule
-    val coroutinesTestRule = CoroutinesTestRule()
+    val coroutinesTestRule = CoroutineTestRule()
 
    //Escuchar lista Flow emite del servidor
     @Test

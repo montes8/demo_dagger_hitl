@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.ui.home.HomeTwoViewModel
 import com.challenge.demodaggerhilt.usecases.AppUseCase
-import com.challenge.demodaggerhilt.usecases.DataHiltUseCase
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -12,14 +11,18 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import org.junit.*
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class AppViewModelTest{
 
      @Mock
-     lateinit var appUseCase: AppUseCase
+     lateinit var loginUseCase: AppUseCase
 
      @Mock
      lateinit var observer: Observer<Boolean>
@@ -48,11 +51,10 @@ class AppViewModelTest{
 
      @Test
      fun `get load login`() = runBlockingTest{
-         val vm = AppViewModel(appUseCase,dispatcher)
-         Mockito.`when`(appUseCase.getUserTwo()).thenReturn(true)
+         val vm = AppViewModel(loginUseCase,dispatcher)
+         `when`(loginUseCase.getUserTwo()).thenReturn(true)
          vm.successUserTwoLiveData.observeForever(observer)
-         vm.getUser("gabbi","gabbi")
+         vm.getUserTwo("gabbi","gabbi")
          verify(observer).onChanged(true)
-
      }
 }

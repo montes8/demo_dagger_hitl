@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeTwoViewModel @Inject constructor(private val appUseCase: DataHiltUseCase,@IoDispatcher
-private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO): BaseViewModel(){
+private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO): BaseViewModel(ioDispatcher){
 
 
     val successListLiveData        : LiveData<List<String>> get()   = _successListLiveData
@@ -23,7 +23,7 @@ private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO): BaseViewModel(
 
 
     fun getList(){
-        viewModelScope.launch(ioDispatcher) {
+        executeSuspendNotProgress{
             val response = appUseCase.getList()
             _successListLiveData.postValue(response)
         }

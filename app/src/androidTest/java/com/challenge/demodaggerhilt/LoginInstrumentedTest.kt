@@ -23,6 +23,8 @@ class LoginInstrumentedTest {
     @get:Rule
     val activityRule = ActivityTestRule(LoginActivity::class.java)
 
+    private var email = ""
+
     @Test
     fun listGoesOverTheFold() {
         onView(withId(R.id.editEmail)).perform(typeText("gabbi0812@gmail.com"))

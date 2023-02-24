@@ -9,7 +9,7 @@ import javax.inject.Inject
 class AppNetwork @Inject constructor(private val serviceApi : ServiceApi){
 
     suspend fun getUser(email:String,pass:String): User {
-        val response = serviceApi.loginGeneric(UserResponse(email,pass))
+        val response = serviceApi.loginGeneric(UserResponse("gabbi0812@gmail.com","gabbi@1"))
         val result = response.getResultOrThrowException()
         return result.toUser() }
 

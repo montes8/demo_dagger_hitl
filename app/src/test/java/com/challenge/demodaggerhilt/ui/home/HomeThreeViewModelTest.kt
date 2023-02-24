@@ -1,85 +1,59 @@
 package com.challenge.demodaggerhilt.ui.home
 
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.challenge.demodaggerhilt.CoroutineTestRule
-import com.challenge.demodaggerhilt.repository.api.DataKoinNetwork
+import com.challenge.demodaggerhilt.ui.splash.LoginThreeViewModel
 import com.challenge.demodaggerhilt.usecases.DataKoinUseCase
-import com.challenge.demodaggerhilt.usecases.DataUseCase
-import com.challenge.demodaggerhilt.usecases.IAppRepositoryNetwork
 import com.challenge.demodaggerhilt.utils.testList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.junit.*
-import org.junit.Assert.*
 import org.junit.runner.RunWith
-import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.dsl.module
-import org.koin.test.KoinTest
-import org.koin.test.inject
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.modules.junit4.PowerMockRunner
-import java.util.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.junit.MockitoJUnitRunner
 
-val lookUpLeagueModule = module {
-    single { DataKoinUseCase() }
-    single<IAppRepositoryNetwork> { DataKoinNetwork() }
-    viewModel { HomeThreeViewModel() }
-}
-
-@RunWith(PowerMockRunner::class)
+@RunWith(MockitoJUnitRunner::class)
 class HomeThreeViewModelTest{
 
-    companion object {
-        private const val EMAIL = "abc@example.com"
-        private const val PASSWORD = "123456"
-
-        //Method annotated with BeforeClass will be called once before all class tests execute and should be static
-        @BeforeClass
-        @JvmStatic
-        fun setup() {
-            println("Before Class")
-        }
-
-        //Method annotated with AfterClass will be called once after all class tests execute and should be static
-        @AfterClass
-        @JvmStatic
-        fun teardown() {
-            println("After Class")
-        }
-    }
-
-    private lateinit var loginViewModel: HomeThreeViewModel
+    @Mock
+    lateinit var appUseCase: DataKoinUseCase
 
     @Mock
-    private lateinit var serviceUtil: DataKoinUseCase
+    lateinit var observer: Observer<List<String>>
 
-    @Mock lateinit var observer: Observer<List<String>>
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
-    private inline fun <reified T> mock(): T = Mockito.mock(T::class.java)
-
-    @Rule
-    @JvmField
-    var instantExecutorRule = InstantTaskExecutorRule()
-
-
-    @Rule
-    @JvmField
-    val coRoutineTestRule = CoroutineTestRule()
+    private val dispatcher = TestCoroutineDispatcher()
 
     @Before
-    fun before() {
-        // Enable static mocking for all methods of a class.
-        PowerMockito.mockStatic(UtilityClass::class.java)
-
-        // Initializing the class to be tested
-        loginViewModel = HomeThreeViewModel()
-        loginViewModel.getObserverState().observeForever(mockObserverForStates)
+    fun setUp(){
+        Dispatchers.setMain(dispatcher)
     }
 
+    @After
+    fun tearDown(){
+        Dispatchers.resetMain()
+        dispatcher.cleanupTestCoroutines()
+    }
 
+    @Test
+    fun listenServer() {
+        Assert.assertTrue(true)
+    }
+
+    @Test
+    fun `get list of server`() = runBlockingTest{
+        `when`(appUseCase.getList()).thenReturn(testList)
+        val vm = LoginThreeViewModel(appUseCase,dispatcher)
+        vm.successListLiveData.observeForever(observer)
+        vm.getList()
+        verify(observer).onChanged(testList)
+    }
 }

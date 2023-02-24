@@ -3,9 +3,14 @@ package com.challenge.demodaggerhilt.ui.splash
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.ui.home.HomeTwoViewModel
+import com.challenge.demodaggerhilt.ui.home.HomeViewModel
 import com.challenge.demodaggerhilt.usecases.AppUseCase
+import com.challenge.demodaggerhilt.usecases.DataUseCase
+import com.challenge.demodaggerhilt.utils.FakeDataNetwork
+import com.challenge.demodaggerhilt.utils.UtilsValidation
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -57,4 +62,17 @@ class AppViewModelTest{
          vm.getUserTwo("gabbi","gabbi")
          verify(observer).onChanged(true)
      }
+
+    @Test
+    fun `validation format email`(){
+        val result = UtilsValidation.isEmailValid("emontesinos0812@gmail.com")
+        Assert.assertEquals(true,result)
+    }
+
+    @Test
+    fun `validation email and pass`(){
+    }
+
+
+
 }

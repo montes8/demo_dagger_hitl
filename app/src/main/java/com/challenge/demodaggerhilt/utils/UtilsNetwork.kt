@@ -4,25 +4,16 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
-import android.util.EventLogTags
 import android.util.Log
-import com.challenge.demodaggerhilt.repository.api.DataNetwork
 import com.challenge.demodaggerhilt.repository.api.ListenerLocalDataSource
 import com.challenge.demodaggerhilt.repository.entity.response.CompleteErrorModel
 import com.challenge.demodaggerhilt.repository.exception.UnAuthorizedException
 import com.google.gson.Gson
-import okhttp3.ResponseBody
-import retrofit2.Response
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
+import okhttp3.ResponseBody
+import retrofit2.Response
+import java.util.regex.Pattern
 
 
 fun getDensity(context: Context): Float {
@@ -74,3 +65,18 @@ class FakeDataNetwork(
         return flowOf(testList)
     }
 }
+
+
+object UtilsValidation{
+    fun isEmailValid(email: String): Boolean {
+        return Pattern.compile(
+            "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@"
+                    + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                    + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                    + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                    + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
+                    + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
+        ).matcher(email).matches()
+    }
+}
+

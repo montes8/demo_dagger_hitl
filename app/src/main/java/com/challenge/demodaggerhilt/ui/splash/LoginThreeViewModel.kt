@@ -1,17 +1,16 @@
-package com.challenge.demodaggerhilt.ui.home
+package com.challenge.demodaggerhilt.ui.splash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.challenge.demodaggerhilt.ui.BaseViewModel
 import com.challenge.demodaggerhilt.usecases.DataKoinUseCase
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 
-class HomeThreeViewModel: BaseViewModel(), KoinComponent {
+class LoginThreeViewModel(private val appUseCase: DataKoinUseCase,private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO): BaseViewModel(ioDispatcher){
 
-
-    private val appUseCase: DataKoinUseCase by inject()
+   // private val appUseCase: DataKoinUseCase by inject()
 
     val successListLiveData        : LiveData<List<String>> get()   = _successListLiveData
     private val _successListLiveData    = MutableLiveData<List<String>>()

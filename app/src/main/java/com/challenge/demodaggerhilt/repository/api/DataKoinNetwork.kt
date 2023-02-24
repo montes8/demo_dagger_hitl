@@ -1,12 +1,11 @@
 package com.challenge.demodaggerhilt.repository.api
 
 
-import com.challenge.demodaggerhilt.usecases.IAppRepositoryNetwork
 import com.challenge.demodaggerhilt.utils.testList
 
-class DataKoinNetwork: IAppRepositoryNetwork {
+class DataKoinNetwork {
 
-      override suspend fun getList(): List<String> {
+      suspend fun getList(): List<String>{
         return testList
     }
 }

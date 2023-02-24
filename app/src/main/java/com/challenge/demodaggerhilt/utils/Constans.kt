@@ -10,8 +10,5 @@ const val AUTHORIZATION = "x-token"
 const val DEVICE_MODEL = "deviceModel"
 const val DEVICE_OS_HEADER = "deviceOS"
 
-val testList = listOf("Title 1",
-    "Title 2",
-    "Title 3",
-   "Title 4"
+val testList = listOf("Title 1"
 )

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="80dp"
-    tools:context=".ui.splash.SplashActivity">
+    tools:context=".ui.splash.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="0dp"

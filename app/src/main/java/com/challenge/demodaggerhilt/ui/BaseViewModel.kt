@@ -4,10 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel(private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO) : ViewModel() {
     val errorLiveData = MutableLiveData<Throwable>()
     val progressLiveData = MutableLiveData<Boolean>()
 
@@ -37,7 +38,7 @@ open class BaseViewModel : ViewModel() {
         }
 
     fun executeSuspendNotProgress(func: suspend () -> Unit) =
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             try {
                 func()
             } catch (ex: Exception) {

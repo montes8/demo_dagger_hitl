@@ -3,16 +3,25 @@
     package="com.challenge.demodaggerhilt">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".application.ApplicationDemoHilt"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".application.ApplicationDemoHilt"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoDaggerHilt">
-        <activity android:name=".ui.splash.SplashActivity"
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.splash.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

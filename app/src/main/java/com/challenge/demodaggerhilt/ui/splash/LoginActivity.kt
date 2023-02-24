@@ -1,25 +1,23 @@
 package com.challenge.demodaggerhilt.ui.splash
 
-import android.annotation.SuppressLint
-import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.challenge.demodaggerhilt.R
-import com.challenge.demodaggerhilt.databinding.ActivitySplashBinding
-import com.challenge.demodaggerhilt.ui.AppViewModel
+import com.challenge.demodaggerhilt.databinding.ActivityLoginBinding
 import com.challenge.demodaggerhilt.ui.BaseActivity
 import com.challenge.demodaggerhilt.ui.BaseViewModel
+import com.challenge.demodaggerhilt.ui.home.HomeActivity
 
-@SuppressLint("CustomSplashScreen")
+
 @AndroidEntryPoint
-class SplashActivity : BaseActivity() {
-    private lateinit var binding: ActivitySplashBinding
+class LoginActivity : BaseActivity() {
+    private lateinit var binding: ActivityLoginBinding
 
     private val viewModel: AppViewModel by viewModels()
 
     override fun getMainView() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.lifecycleOwner = this
     }
 
@@ -31,9 +29,10 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun observeViewModel() {
-        viewModel.successUserLiveData.observe(this,{
-            Log.d("TAGUSER","$it")
-        })
+        viewModel.successUserLiveData.observe(this) {
+            HomeActivity.newInstance(this)
+            finish()
+        }
     }
 
     override fun getViewModel(): BaseViewModel = viewModel

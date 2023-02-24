@@ -13,4 +13,7 @@ class AppNetwork @Inject constructor(private val serviceApi : ServiceApi){
         val result = response.getResultOrThrowException()
         return result.toUser() }
 
+    suspend fun getUserTwo(): Boolean {
+        return true }
+
 }

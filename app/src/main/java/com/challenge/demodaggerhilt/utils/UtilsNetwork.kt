@@ -4,12 +4,26 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.provider.Settings
+import android.util.EventLogTags
 import android.util.Log
+import com.challenge.demodaggerhilt.repository.api.DataNetwork
+import com.challenge.demodaggerhilt.repository.api.ListenerLocalDataSource
 import com.challenge.demodaggerhilt.repository.entity.response.CompleteErrorModel
 import com.challenge.demodaggerhilt.repository.exception.UnAuthorizedException
 import com.google.gson.Gson
 import okhttp3.ResponseBody
 import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.rules.TestWatcher
+import org.junit.runner.Description
+
 
 fun getDensity(context: Context): Float {
 
@@ -51,4 +65,30 @@ fun ResponseBody?.toCompleteErrorModel(code : Int) : CompleteErrorModel? {
         Log.d("TAGUSER","toCompleteErrorModel")
         return  if (code == 407) throw UnAuthorizedException () else Gson().fromJson(it.string(), CompleteErrorModel::class.java)
     } ?: CompleteErrorModel()
+}
+
+@ExperimentalCoroutinesApi
+class CoroutinesTestRule(
+    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+) : TestWatcher() {
+
+    override fun starting(description: Description) {
+        super.starting(description)
+        Dispatchers.setMain(testDispatcher)
+    }
+
+    override fun finished(description: Description) {
+        super.finished(description)
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
+    }
+}
+
+class FakeDataNetwork(
+): ListenerLocalDataSource {
+
+
+    override fun getList(): Flow<List<String>> {
+        return flowOf(testList)
+    }
 }

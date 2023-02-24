@@ -5,7 +5,7 @@ import com.challenge.demodaggerhilt.usecases.IAppRepositoryNetwork
 import org.koin.dsl.module
 
 val networkModule = module {
-    single { DataKoinNetwork() }
+    single <IAppRepositoryNetwork>{ DataKoinNetwork() }
 
 }
 

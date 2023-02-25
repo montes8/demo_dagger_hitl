@@ -18,21 +18,6 @@ import org.w3c.dom.Text
 import retrofit2.Response
 import java.util.regex.Pattern
 
-
-fun getDensity(context: Context): Float {
-
-    return context.resources.displayMetrics.density
-}
-
-fun getWidth(context: Context): Int {
-    return context.resources.displayMetrics.widthPixels
-}
-
-fun getHeight(context: Context): Int {
-    return context.resources.displayMetrics.heightPixels
-}
-
-
 fun Context?.isConnected(): Boolean {
     return this?.let {
         val cm = it.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -47,20 +32,6 @@ fun Context?.isAirplaneModeActive(): Boolean {
     } ?: false
 }
 
-
-fun <T> Response<T>.validateBody() : T {
-    this.body()?.let {
-        return it
-    } ?: throw NullPointerException()
-}
-
-fun ResponseBody?.toCompleteErrorModel(code : Int) : CompleteErrorModel? {
-    return this?.let {
-        Log.d("TAGUSER","toCompleteErrorModel")
-        return  if (code == 407) throw UnAuthorizedException () else Gson().fromJson(it.string(), CompleteErrorModel::class.java)
-    } ?: CompleteErrorModel()
-}
-
 class FakeDataNetwork(
 ): ListenerLocalDataSource {
 
@@ -71,6 +42,8 @@ class FakeDataNetwork(
     override suspend fun getListService(): Response<List<String>> {
         TODO("Not yet implemented")
     }
+
+
 }
 
 fun String.isEmailValid(): Boolean {
@@ -89,10 +62,4 @@ fun String.lengthPlus1(): Int {
     return this.length + 1
 }
 
-
-
-fun TextView.textCustom(value: String):String{
-     this.setText(value)
-    return this.text.toString()
-}
 

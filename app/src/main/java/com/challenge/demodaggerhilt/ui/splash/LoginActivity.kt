@@ -12,6 +12,7 @@ import com.challenge.demodaggerhilt.ui.home.HomeActivity
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {
+
     private lateinit var binding: ActivityLoginBinding
 
     private val viewModel: AppViewModel by viewModels()

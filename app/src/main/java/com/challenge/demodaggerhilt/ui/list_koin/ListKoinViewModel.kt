@@ -8,7 +8,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 
-class ListKoinViewModel(private val appUseCase: DataKoinUseCase, private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO): BaseViewModel(ioDispatcher){
+class ListKoinViewModel(private val appUseCase: DataKoinUseCase, private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO):
+    BaseViewModel(ioDispatcher){
 
    // private val appUseCase: DataKoinUseCase by inject()
 

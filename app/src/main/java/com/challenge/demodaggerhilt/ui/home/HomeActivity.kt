@@ -2,13 +2,13 @@ package com.challenge.demodaggerhilt.ui.home
 
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.challenge.demodaggerhilt.R
 import com.challenge.demodaggerhilt.databinding.ActivityHomeBinding
 import com.challenge.demodaggerhilt.ui.BaseActivity
 import com.challenge.demodaggerhilt.ui.BaseViewModel
-import org.koin.android.ext.android.inject
+import com.challenge.demodaggerhilt.ui.list_hilt.ListHiltActivity
+import com.challenge.demodaggerhilt.ui.list_koin.ListKoinActivity
 
 class HomeActivity : BaseActivity() {
 
@@ -23,7 +23,15 @@ class HomeActivity : BaseActivity() {
         binding.lifecycleOwner = this
     }
 
-    override fun setUpView() {}
+    override fun setUpView() {
+        binding.btnTwo.setOnClickListener {
+            ListHiltActivity.newInstance(this)
+        }
+
+        binding.btnThree.setOnClickListener {
+            ListKoinActivity.newInstance(this)
+        }
+    }
 
     override fun observeViewModel() {
     }

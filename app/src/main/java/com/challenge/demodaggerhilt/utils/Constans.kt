@@ -9,5 +9,7 @@ const val generalErrorCode : Int = -1
 const val AUTHORIZATION = "x-token"
 const val DEVICE_MODEL = "deviceModel"
 
+const val NAME_BASE_URL = "BASE_URL"
+
 val testList = listOf("Title 1")
 val testListTwo = listOf("Title 1","gabbi")

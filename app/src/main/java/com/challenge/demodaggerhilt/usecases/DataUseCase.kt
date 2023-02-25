@@ -12,4 +12,5 @@ class DataUseCase (private val iAppRepositoryNetwork: ListenerLocalDataSource) {
 
 
       suspend fun getListService(): Response<List<String>> = iAppRepositoryNetwork.getListService()
+
 }

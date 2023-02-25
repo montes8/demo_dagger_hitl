@@ -2,14 +2,12 @@ package com.challenge.demodaggerhilt.ui.list_hilt
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.challenge.demodaggerhilt.repository.di.IoDispatcher
 import com.challenge.demodaggerhilt.ui.BaseViewModel
 import com.challenge.demodaggerhilt.usecases.DataHiltUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

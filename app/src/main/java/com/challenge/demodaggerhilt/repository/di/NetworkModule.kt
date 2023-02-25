@@ -9,9 +9,7 @@ import com.challenge.demodaggerhilt.utils.*
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.DefineComponent
 import dagger.hilt.InstallIn
-import dagger.hilt.android.internal.modules.ApplicationContextModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
@@ -71,7 +69,7 @@ object DataModule {
     @Singleton
     @Provides
     fun provideHeaderInterceptor(@ApplicationContext appContext: Context): Interceptor {
-        return ApiInterceptor(appContext)
+        return ApiInterceptor()
 
     }
     @Singleton
@@ -86,21 +84,17 @@ object DataModule {
 
 }
 
-class ApiInterceptor@Inject constructor(private val context: Context) : Interceptor {
+/*class ApiInterceptor@Inject constructor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val builder = request.newBuilder()
             .addHeader("Content-Type", CONTENT_TYPE)
             .addHeader(DEVICE_MODEL, "${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}")
-            .addHeader("x-density", getDensity(context).toString())
-            .addHeader("x-width", getWidth(context).toString())
-            .addHeader("x-height", getHeight(context).toString())
-            //.header("x-os", PLATFORM)
 
         request = builder.build()
         return chain.proceed(request)
     }
-}
+}*/
 
 @InstallIn(SingletonComponent::class)
 @Module

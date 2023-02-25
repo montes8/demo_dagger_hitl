@@ -12,14 +12,14 @@ open class DataNetwork
 constructor(private val serviceApi: ServiceApi) : ListenerLocalDataSource{
 
      override fun getList(): Flow<List<String>> { return flowOf(testList) }
-
-     override suspend fun getListService() = serviceApi.getList()
-
+     override  suspend fun getListService(): Response<List<String>> {
+       return serviceApi.getList()
+    }
 }
 
 
 interface ListenerLocalDataSource {
     fun getList(): Flow<List<String>>
 
-    suspend fun getListService() : Response<List<String>>
+    suspend fun getListService(): Response<List<String>>
 }

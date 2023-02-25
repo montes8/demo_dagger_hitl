@@ -26,7 +26,7 @@ class LoginInstrumentedTest {
     private var email = ""
 
     @Test
-    fun listGoesOverTheFold() {
+    fun validateLoginLabel() {
         onView(withId(R.id.editEmail)).perform(typeText("gabbi0812@gmail.com"))
         onView(withId(R.id.editPassword)).perform(typeText("gabbi@1"))
         onView(withId(R.id.btnLogin)).perform(click())

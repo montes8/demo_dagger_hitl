@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.challenge.demodaggerhilt.BuildConfig
 import com.challenge.demodaggerhilt.repository.ServiceApi
+import com.challenge.demodaggerhilt.repository.adapter.CoroutinesResponseCallAdapterFactory
 import com.challenge.demodaggerhilt.repository.api.DataKoinNetwork
 import com.challenge.demodaggerhilt.usecases.IAppRepositoryNetwork
-import com.challenge.demodaggerhilt.utils.AUTHORIZATION
-import com.challenge.demodaggerhilt.utils.CONTENT_TYPE
-import com.challenge.demodaggerhilt.utils.NAME_BASE_URL
-import com.challenge.demodaggerhilt.utils.TIMEOUT
+import com.challenge.demodaggerhilt.utils.*
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -41,6 +39,7 @@ fun providerRetrofit(baseUrl: String, client: OkHttpClient): Retrofit {
         .client(client)
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
         .build()
 }
 
@@ -73,7 +72,9 @@ class ApiInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val builder = request.newBuilder()
-            .addHeader("contenttype", CONTENT_TYPE)
+            .addHeader("Content-Type", CONTENT_TYPE)
+            .addHeader(DEVICE_MODEL, "${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}")
+
         request = builder.build()
         return chain.proceed(request)
     }

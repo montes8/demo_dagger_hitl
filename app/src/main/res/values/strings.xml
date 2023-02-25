@@ -2,7 +2,8 @@
     <string name="app_name">DemoDaggerHilt</string>
     <string name="text_title">Maggi Bravi</string>
     <string name="text_sub_title">Lucía Magdalena Ana Bravi (La Plata; 15 de octubre de 1988) más conocida como Magui Bravi, es una actriz, bailarina y presentadora argentina.</string>
-
+    <string name="text_hilt">Configuración Hilt</string>
+    <string name="text_koin">Configuración Koin</string>
 
 
 </resources>

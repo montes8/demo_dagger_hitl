@@ -9,7 +9,6 @@ import com.challenge.demodaggerhilt.databinding.ActivityListBinding
 import com.challenge.demodaggerhilt.ui.BaseActivity
 import com.challenge.demodaggerhilt.ui.BaseViewModel
 import com.challenge.demodaggerhilt.ui.adapter.ListDemoAdapter
-import com.challenge.demodaggerhilt.ui.list_hilt.ListHiltActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListKoinActivity : BaseActivity() {
@@ -17,7 +16,7 @@ class ListKoinActivity : BaseActivity() {
     private val viewModel: ListKoinViewModel by viewModel(clazz = ListKoinViewModel::class)
 
     companion object{
-        fun newInstance(context: Context) = context.startActivity(Intent(context, ListHiltActivity::class.java))
+        fun newInstance(context: Context) = context.startActivity(Intent(context, ListKoinActivity::class.java))
     }
 
     private val listDemoAdapter: ListDemoAdapter = ListDemoAdapter()
@@ -31,6 +30,7 @@ class ListKoinActivity : BaseActivity() {
 
     override fun setUpView() {
         binding.rvGeneric.adapter = listDemoAdapter
+        binding.textTitleList.text = getString(R.string.text_koin)
         viewModel.getList()
     }
 

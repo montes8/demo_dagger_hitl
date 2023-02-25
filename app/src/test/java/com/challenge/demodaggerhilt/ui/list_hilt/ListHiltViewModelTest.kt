@@ -1,8 +1,11 @@
 package com.challenge.demodaggerhilt.ui.list_hilt
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.CoroutineTestRule
+import com.challenge.demodaggerhilt.repository.api.DataHiltNetwork
 import com.challenge.demodaggerhilt.usecases.DataHiltUseCase
+import com.challenge.demodaggerhilt.usecases.DataKoinUseCase
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -18,20 +21,23 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class ListHiltViewModelTest{
 
-    @Mock lateinit var appUseCase: DataHiltUseCase
+    @Mock
+    lateinit var appUseCase: DataHiltUseCase
 
-    @Mock lateinit var observer: Observer<List<String>>
+    @Mock
+    lateinit var observer: Observer<List<String>>
 
     @get:Rule
-    val rule = CoroutineTestRule()
+    val rule = InstantTaskExecutorRule()
 
-    private val dispatcher = TestCoroutineDispatcher()
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
 
 
     @Test
     fun `get list of server`() = runBlockingTest{
         `when`(appUseCase.getList()).thenReturn(testList)
-       val vm = ListHiltViewModel(appUseCase,dispatcher)
+       val vm = ListHiltViewModel(appUseCase,coroutineTestRule.dispatcher)
         vm.successListLiveData.observeForever(observer)
         vm.getList()
         verify(observer).onChanged(testList)

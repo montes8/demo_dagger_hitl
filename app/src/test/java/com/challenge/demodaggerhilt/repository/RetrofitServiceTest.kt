@@ -39,7 +39,7 @@ class RetrofitServiceTest {
             mockWebServer.enqueue(mockResponse.setBody("[]"))
             val response = apiService.getList()
             val request = mockWebServer.takeRequest()
-            assertEquals("/movielist",request.path)
+            assertEquals("/api/user/listTest",request.path)
             assertEquals(true, response.body()?.isEmpty() == true)
         }
     }

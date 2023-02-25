@@ -25,7 +25,7 @@ interface ServiceApi {
     @GET("api/auth/login")
     suspend fun getListHilt(): GenericResponse<List<String>>
 
-    @GET("api/auth/login")
+    @GET("movielist")
     suspend fun getList(): Response<List<String>>
 
 

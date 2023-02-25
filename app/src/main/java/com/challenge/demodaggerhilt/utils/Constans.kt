@@ -8,7 +8,6 @@ const val generalErrorMessage  : String = "Ha ocurrido un error desconocido."
 const val generalErrorCode : Int = -1
 const val AUTHORIZATION = "x-token"
 const val DEVICE_MODEL = "deviceModel"
-const val DEVICE_OS_HEADER = "deviceOS"
 
-val testList = arrayListOf("Title 1")
-val testListTwo = arrayListOf("Title 1","gabbi")
+val testList = listOf("Title 1")
+val testListTwo = listOf("Title 1","gabbi")

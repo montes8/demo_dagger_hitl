@@ -1,20 +1,15 @@
 package com.challenge.demodaggerhilt.ui.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.getOrAwaitValue
 import com.challenge.demodaggerhilt.repository.ServiceApi
 import com.challenge.demodaggerhilt.repository.api.DataNetwork
 import com.challenge.demodaggerhilt.usecases.DataUseCase
-import com.challenge.demodaggerhilt.utils.FakeDataNetwork
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -49,19 +44,19 @@ class ListIntegrationViewModelTest {
     }
 
     @Test
-    fun getAllMoviesTest() {
+    fun getAllListTest() {
         runBlocking {
             Mockito.`when`(mainUseCase.getListService())
-                .thenReturn(Response.success(listOf<String>("movie", "", "new")))
+                .thenReturn(Response.success(testList))
             mainViewModel.getListService()
             val result = mainViewModel.successListLiveData.getOrAwaitValue()
-            assertEquals(listOf<String>("movie", "", "new"), result)
+            assertEquals(testList, result)
         }
     }
 
 
     @Test
-    fun `empty movie list test`() {
+    fun `empty list test`() {
         runBlocking {
             Mockito.`when`(mainRepository.getListService())
                 .thenReturn(Response.success(listOf<String>()))

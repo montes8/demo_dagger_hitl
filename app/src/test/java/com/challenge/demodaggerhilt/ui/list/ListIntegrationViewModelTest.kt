@@ -47,8 +47,7 @@ class ListIntegrationViewModelTest {
     @Test
     fun getAllListTest() {
         runBlocking {
-            Mockito.`when`(mainUseCase.getListService())
-                .thenReturn(Response.success(testList))
+            Mockito.`when`(mainRepository.getListService()).thenReturn(Response.success(testList))
             mainViewModel.getListService()
             val result = mainViewModel.successListLiveData.getOrAwaitValue()
             assertEquals(testList, result)

@@ -1,6 +1,7 @@
 package com.challenge.demodaggerhilt.usecases
 
 import com.challenge.demodaggerhilt.repository.api.DataHiltNetwork
+import retrofit2.Response
 import javax.inject.Inject
 
 

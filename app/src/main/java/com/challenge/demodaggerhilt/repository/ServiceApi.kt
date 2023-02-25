@@ -29,7 +29,7 @@ interface ServiceApi {
     @GET("api/user/listTest")
     suspend fun getListKoin(): GenericResponse<List<String>>
 
-    @GET("api/user/listTest")
+   @GET("api/user/listTest")
     suspend fun getListHilt(): GenericResponse<List<String>>
 
     @GET("api/user/listTest")

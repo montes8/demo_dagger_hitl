@@ -6,12 +6,8 @@ import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.usecases.DataKoinUseCase
 import com.challenge.demodaggerhilt.utils.testList
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
 import org.junit.*
 import org.junit.runner.RunWith
 import org.mockito.Mock

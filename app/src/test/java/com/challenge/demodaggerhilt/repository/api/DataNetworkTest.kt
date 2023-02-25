@@ -1,10 +1,7 @@
 package com.challenge.demodaggerhilt.repository.api
 
 import com.challenge.demodaggerhilt.repository.ServiceApi
-import com.challenge.demodaggerhilt.repository.adapter.MapperResponse
-import com.challenge.demodaggerhilt.repository.adapter.getResultOrThrowException
 import com.challenge.demodaggerhilt.utils.testList
-import com.challenge.demodaggerhilt.utils.validateBody
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before

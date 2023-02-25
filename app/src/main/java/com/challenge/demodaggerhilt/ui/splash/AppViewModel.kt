@@ -37,5 +37,12 @@ class AppViewModel @Inject constructor(private val appUseCase: AppUseCase,
         }
     }
 
+    fun getUserThree(email : String, password : String){
+        execute{
+            val response = appUseCase.getUserThree()
+            _successUserTwoLiveData.postValue(response)
+        }
+    }
+
 
 }

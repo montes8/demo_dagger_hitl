@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.usecases.AppUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
 import org.junit.runner.RunWith
@@ -16,7 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class AppViewModelTest{
+class LoginViewModelTest{
 
      @Mock
      lateinit var loginUseCase: AppUseCase
@@ -24,21 +23,19 @@ class AppViewModelTest{
      @Mock
      lateinit var observer: Observer<Boolean>
 
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
+     @get:Rule
+     val rule = InstantTaskExecutorRule()
 
 
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
-
      @Test
      fun `get load login`() = runBlockingTest{
-         val vm = AppViewModel(loginUseCase,coroutineTestRule.dispatcher)
-         `when`(loginUseCase.getUserTwo()).thenReturn(true)
-         vm.successUserTwoLiveData.observeForever(observer)
-         vm.getUserTwo("gabbi","gabbi")
+         val vm = LoginBasicViewModel(coroutineTestRule.dispatcher)
+        // `when`(loginUseCase.getUserTwo()).thenReturn(true)
+         vm.successUserLiveData.observeForever(observer)
+         vm.getUser("gabbi","gabbi")
          verify(observer).onChanged(true)
      }
 

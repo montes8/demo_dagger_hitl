@@ -14,6 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoDaggerHilt">
         <activity
+            android:name=".ui.list_koin.ListKoinActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.list_hilt.ListHiltActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.list.ListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false">
             <meta-data

@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="60dp"
+        tools:context=".ui.home.HomeActivity">
+
+
+        <Button
+            android:id="@+id/btnOne"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Lista"
+            app:layout_constraintBottom_toTopOf="@+id/btnTwo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnTwo"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Lista Hilt"
+            app:layout_constraintBottom_toTopOf="@+id/btnThree"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnOne" />
+
+        <Button
+            android:id="@+id/btnThree"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Lista Koin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnTwo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

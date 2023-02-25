@@ -8,14 +8,11 @@ import com.challenge.demodaggerhilt.R
 import com.challenge.demodaggerhilt.databinding.ActivityHomeBinding
 import com.challenge.demodaggerhilt.ui.BaseActivity
 import com.challenge.demodaggerhilt.ui.BaseViewModel
-import com.challenge.demodaggerhilt.ui.splash.LoginThreeViewModel
 import org.koin.android.ext.android.inject
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-
-    private val appUseCase: LoginThreeViewModel by inject()
 
     companion object{
         fun newInstance(context: Context) = context.startActivity(Intent(context, HomeActivity::class.java))
@@ -26,15 +23,9 @@ class HomeActivity : BaseActivity() {
         binding.lifecycleOwner = this
     }
 
-    override fun setUpView() {
-        appUseCase.getList()
-    }
+    override fun setUpView() {}
 
     override fun observeViewModel() {
-
-       appUseCase.successListLiveData.observe(this){
-            Toast.makeText(this,"it",Toast.LENGTH_LONG).show()
-        }
     }
 
     override fun getViewModel(): BaseViewModel? = null

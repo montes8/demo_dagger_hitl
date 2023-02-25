@@ -11,7 +11,8 @@ class AppNetwork @Inject constructor(private val serviceApi : ServiceApi){
     suspend fun getUser(email:String,pass:String): User {
         val response = serviceApi.loginGeneric(UserResponse("gabbi0812@gmail.com","gabbi@1"))
         val result = response.getResultOrThrowException()
-        return result.toUser() }
+        return result.toUser()
+    }
 
     suspend fun getUserTwo(): Boolean {
         return true }

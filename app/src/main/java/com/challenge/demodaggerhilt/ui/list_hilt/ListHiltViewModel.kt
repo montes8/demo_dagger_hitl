@@ -1,4 +1,4 @@
-package com.challenge.demodaggerhilt.ui.home
+package com.challenge.demodaggerhilt.ui.list_hilt
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeTwoViewModel @Inject constructor(private val appUseCase: DataHiltUseCase,@IoDispatcher
+class ListHiltViewModel @Inject constructor(private val appUseCase: DataHiltUseCase, @IoDispatcher
 private val ioDispatcher : CoroutineDispatcher = Dispatchers.IO): BaseViewModel(ioDispatcher){
 
 

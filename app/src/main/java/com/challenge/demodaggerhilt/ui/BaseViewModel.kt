@@ -21,4 +21,13 @@ open class BaseViewModel(private val ioDispatcher : CoroutineDispatcher = Dispat
                 errorLiveData.postValue(ex)
             }
         }
+
+    fun execute(func:() -> Unit) =
+        viewModelScope.launch(ioDispatcher) {
+            try {
+                func()
+            } catch (ex: Exception) {
+                errorLiveData.postValue(ex)
+            }
+        }
 }

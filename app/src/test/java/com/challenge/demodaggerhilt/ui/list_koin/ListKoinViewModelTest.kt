@@ -1,12 +1,13 @@
-package com.challenge.demodaggerhilt.ui.home
+package com.challenge.demodaggerhilt.ui.list_koin
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.challenge.demodaggerhilt.ui.splash.LoginThreeViewModel
+import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.usecases.DataKoinUseCase
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -18,8 +19,9 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class HomeThreeViewModelTest{
+class ListKoinViewModelTest{
 
     @Mock
     lateinit var appUseCase: DataKoinUseCase
@@ -30,28 +32,18 @@ class HomeThreeViewModelTest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val dispatcher = TestCoroutineDispatcher()
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
 
-    @Before
-    fun setUp(){
-        Dispatchers.setMain(dispatcher)
-    }
-
-    @After
-    fun tearDown(){
-        Dispatchers.resetMain()
-        dispatcher.cleanupTestCoroutines()
-    }
 
     @Test
     fun listenServer() {
         Assert.assertTrue(true)
     }
-
     @Test
     fun `get list of server`() = runBlockingTest{
         `when`(appUseCase.getList()).thenReturn(testList)
-        val vm = LoginThreeViewModel(appUseCase,dispatcher)
+        val vm = ListKoinViewModel(appUseCase,coroutineTestRule.dispatcher)
         vm.successListLiveData.observeForever(observer)
         vm.getList()
         verify(observer).onChanged(testList)

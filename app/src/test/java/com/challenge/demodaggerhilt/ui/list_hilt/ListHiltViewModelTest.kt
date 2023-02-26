@@ -33,7 +33,6 @@ class ListHiltViewModelTest{
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
-
     @Test
     fun `get list of server`() = runBlockingTest{
         `when`(appUseCase.getList()).thenReturn(testList)

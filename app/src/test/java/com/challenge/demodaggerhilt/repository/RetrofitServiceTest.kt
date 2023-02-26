@@ -9,11 +9,14 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@RunWith(MockitoJUnitRunner::class)
 class RetrofitServiceTest {
 
     lateinit var mockWebServer: MockWebServer
@@ -22,7 +25,6 @@ class RetrofitServiceTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
         gson = Gson()
         mockWebServer = MockWebServer()
         apiService = Retrofit.Builder()

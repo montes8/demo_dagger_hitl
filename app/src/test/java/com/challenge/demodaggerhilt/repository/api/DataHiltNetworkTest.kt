@@ -25,7 +25,6 @@ class DataHiltNetworkTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
         mainRepository = DataHiltNetwork(apiService)
     }
 

@@ -1,6 +1,7 @@
 package com.challenge.demodaggerhilt.ui.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.getOrAwaitValue
 import com.challenge.demodaggerhilt.repository.ServiceApi
 import com.challenge.demodaggerhilt.repository.api.DataNetwork
@@ -8,6 +9,7 @@ import com.challenge.demodaggerhilt.ui.ListViewModel
 import com.challenge.demodaggerhilt.usecases.DataUseCase
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
@@ -15,15 +17,18 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
 
 
+@ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class ListIntegrationViewModelTest {
 
-    private val testDispatcher = TestCoroutineDispatcher()
     lateinit var mainViewModel: ListViewModel
     lateinit var mainRepository: DataNetwork
     lateinit var mainUseCase: DataUseCase
@@ -34,10 +39,11 @@ class ListIntegrationViewModelTest {
     @get:Rule
     val instantTaskExecutionRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val coroutinesTestRule = CoroutineTestRule()
+
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
-        Dispatchers.setMain(testDispatcher)
         mainRepository = DataNetwork(apiService)
         mainUseCase = DataUseCase(mainRepository)
         mainViewModel = ListViewModel(mainUseCase)

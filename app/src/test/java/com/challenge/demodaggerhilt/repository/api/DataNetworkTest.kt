@@ -6,12 +6,15 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
 
-internal class DataNetworkTest {
+@RunWith(MockitoJUnitRunner::class)
+class DataNetworkTest {
 
     lateinit var mainRepository: DataNetwork
 
@@ -20,7 +23,6 @@ internal class DataNetworkTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
         mainRepository = DataNetwork(apiService)
     }
 
@@ -31,7 +33,5 @@ internal class DataNetworkTest {
             val response = mainRepository.getListService()
             Assert.assertEquals(testList, response.body())
         }
-
-
     }
 }

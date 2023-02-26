@@ -19,7 +19,7 @@ class DataHiltUseCaseTest{
 
     @Test
     fun `validate data list correct`() = runBlockingTest{
-        //Mockito.`when`(dataKoinNetwork.getList()).thenReturn(testList)
+        Mockito.`when`(dataKoinNetwork.getList()).thenReturn(testList)
         val result =  dataKoinNetwork.getList()
         Assert.assertEquals(result, testListTwo)
     }

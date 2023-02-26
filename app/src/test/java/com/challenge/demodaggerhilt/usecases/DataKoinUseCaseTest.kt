@@ -1,15 +1,9 @@
 package com.challenge.demodaggerhilt.usecases
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.repository.api.DataKoinNetwork
-import com.challenge.demodaggerhilt.ui.splash.AppViewModel
 import com.challenge.demodaggerhilt.utils.testList
-import com.challenge.demodaggerhilt.utils.testListTwo
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -31,12 +25,12 @@ class DataKoinUseCaseTest{
         Assert.assertEquals(result, testList)
     }
 
- /*   @Test
+   @Test
     fun `validate data list incorrect`() = runBlockingTest{
         val a :IAppRepositoryNetwork  = dataKoinNetwork
         val dataKoinUseCase = DataKoinUseCase(a)
-        Mockito.`when`(dataKoinUseCase.getList("gabbi")).thenReturn(arrayListOf("Title 2"))
-        val result =  dataKoinUseCase.getList("gabbi")
+        Mockito.`when`(dataKoinUseCase.getList()).thenReturn(arrayListOf("Title 2"))
+        val result =  dataKoinUseCase.getList()
         Assert.assertEquals(result,testList)
-    }*/
+    }
 }

@@ -27,11 +27,8 @@ class AppViewModelTest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-
-
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
-
 
      @Test
      fun `get load login`() = runBlockingTest{

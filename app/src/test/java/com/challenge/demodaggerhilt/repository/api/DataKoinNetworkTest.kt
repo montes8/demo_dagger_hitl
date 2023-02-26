@@ -25,10 +25,8 @@ class DataKoinNetworkTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
         mainRepository = DataKoinNetwork(apiService)
     }
-
 
     @Test
     fun `get all list test`() {

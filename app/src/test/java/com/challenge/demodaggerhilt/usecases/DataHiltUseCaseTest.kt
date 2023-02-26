@@ -3,6 +3,7 @@ package com.challenge.demodaggerhilt.usecases
 import com.challenge.demodaggerhilt.repository.api.DataHiltNetwork
 import com.challenge.demodaggerhilt.utils.testList
 import com.challenge.demodaggerhilt.utils.testListTwo
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Test
@@ -18,10 +19,11 @@ class DataHiltUseCaseTest{
     lateinit var dataKoinNetwork: DataHiltNetwork
 
     @Test
-    fun `validate data list correct`() = runBlockingTest{
+    fun `validate data list correct`() = runBlocking{
+        val useCase = DataHiltUseCase(dataKoinNetwork)
         Mockito.`when`(dataKoinNetwork.getList()).thenReturn(testList)
-        val result =  dataKoinNetwork.getList()
-        Assert.assertEquals(result, testListTwo)
+        val result =  useCase.getList()
+        Assert.assertEquals(result, testList)
     }
 
 }

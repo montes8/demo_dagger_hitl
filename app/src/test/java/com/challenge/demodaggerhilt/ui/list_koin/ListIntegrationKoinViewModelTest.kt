@@ -1,6 +1,7 @@
 package com.challenge.demodaggerhilt.ui.list_koin
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.getOrAwaitValue
 import com.challenge.demodaggerhilt.repository.ServiceApi
@@ -37,12 +38,14 @@ import retrofit2.Response
 class ListIntegrationKoinViewModelTest {
 
     lateinit var mainViewModel: ListKoinViewModel
-   // lateinit var mainRepository: DataHiltNetwork
+    lateinit var mainRepository: DataKoinNetwork
     lateinit var mainUseCase: DataKoinUseCase
 
-   // @Mock lateinit var apiService: ServiceApi
+    @Mock lateinit var apiService: ServiceApi
 
-    @Mock lateinit var mainRepository: DataKoinNetwork
+
+    @Mock
+    lateinit var observer: Observer<List<String>>
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -53,8 +56,7 @@ class ListIntegrationKoinViewModelTest {
 
     @Before
     fun setup() {
-        //MockitoAnnotations.initMocks(this)
-       // mainRepository = DataHiltNetwork(apiService)
+        mainRepository = DataKoinNetwork(apiService)
         mainUseCase = DataKoinUseCase(mainRepository)
         mainViewModel = ListKoinViewModel(mainUseCase,coroutineTestRule.dispatcher)
 
@@ -62,17 +64,18 @@ class ListIntegrationKoinViewModelTest {
 
     @Test
     fun getAllListTest() = runBlockingTest {
-            Mockito.`when`(mainRepository.getList()).thenReturn(testList)
+            Mockito.`when`(apiService.getListKoin()).thenReturn(MapperResponse.from(Response.success(testList)))
             mainViewModel.getList()
-            val result = mainViewModel.successListLiveData.getOrAwaitValue()
-            assertEquals(testList, result)
+            mainViewModel.successListLiveData.observeForever(observer)
+            Mockito.verify(observer).onChanged(testList)
         }
 
 
     @Test
     fun `empty list test`() {
         runBlocking {
-            Mockito.`when`(mainRepository.getList()).thenReturn(listOf<String>())
+           Mockito.`when`(apiService.getListKoin()).
+           thenReturn(MapperResponse.from(Response.success(listOf<String>())))
             mainViewModel.getList()
             val result = mainViewModel.successListLiveData.getOrAwaitValue()
             assertEquals(listOf<String>(), result)

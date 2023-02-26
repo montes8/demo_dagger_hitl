@@ -35,12 +35,10 @@ import retrofit2.Response
 class ListIntegrationHiltViewModelTest {
 
     lateinit var mainViewModel: ListHiltViewModel
-   // lateinit var mainRepository: DataHiltNetwork
+    lateinit var mainRepository: DataHiltNetwork
     lateinit var mainUseCase: DataHiltUseCase
 
-   // @Mock lateinit var apiService: ServiceApi
-
-    @Mock lateinit var mainRepository: DataHiltNetwork
+   @Mock lateinit var apiService: ServiceApi
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -51,9 +49,7 @@ class ListIntegrationHiltViewModelTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
-        Dispatchers.setMain(coroutineTestRule.dispatcher)
-       // mainRepository = DataHiltNetwork(apiService)
+        mainRepository = DataHiltNetwork(apiService)
         mainUseCase = DataHiltUseCase(mainRepository)
         mainViewModel = ListHiltViewModel(mainUseCase,coroutineTestRule.dispatcher)
 
@@ -61,7 +57,7 @@ class ListIntegrationHiltViewModelTest {
 
     @Test
     fun getAllListTest() = runBlockingTest {
-            Mockito.`when`(mainRepository.getList()).thenReturn(testList)
+        Mockito.`when`(apiService.getListHilt()).thenReturn(MapperResponse.from(Response.success(testList)))
             mainViewModel.getList()
             val result = mainViewModel.successListLiveData.getOrAwaitValue()
             assertEquals(testList, result)
@@ -71,7 +67,7 @@ class ListIntegrationHiltViewModelTest {
     @Test
     fun `empty list test`() {
         runBlocking {
-            Mockito.`when`(mainRepository.getList()).thenReturn(listOf<String>())
+            Mockito.`when`(apiService.getListHilt()).thenReturn(MapperResponse.from(Response.success(listOf<String>())))
             mainViewModel.getList()
             val result = mainViewModel.successListLiveData.getOrAwaitValue()
             assertEquals(listOf<String>(), result)

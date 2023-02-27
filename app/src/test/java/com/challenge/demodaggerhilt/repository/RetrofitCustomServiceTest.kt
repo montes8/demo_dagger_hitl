@@ -1,0 +1,57 @@
+package com.challenge.demodaggerhilt.repository
+
+import com.challenge.demodaggerhilt.repository.adapter.CoroutinesResponseCallAdapterFactory
+import com.challenge.demodaggerhilt.repository.adapter.getResultOrThrowException
+import com.google.gson.Gson
+import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+@RunWith(MockitoJUnitRunner::class)
+class RetrofitCustomServiceTest {
+
+    lateinit var mockWebServer: MockWebServer
+    lateinit var apiService: ServiceApi
+    lateinit var gson: Gson
+
+    @Before
+    fun setup() {
+        gson = Gson()
+        mockWebServer = MockWebServer()
+        apiService = Retrofit.Builder()
+            .baseUrl(mockWebServer.url("/"))
+            .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build().create(ServiceApi::class.java)
+    }
+
+
+    @Test
+    fun `get all list api test`() {
+        runBlocking {
+             val mockResponse = MockResponse()
+            mockWebServer.enqueue(mockResponse.setBody("[]"))
+            val response = apiService.getListKoin()
+            val request = mockWebServer.takeRequest()
+            assertEquals("/api/user/listTest",request.path)
+            assertEquals(true, response.getResultOrThrowException().isEmpty())
+        }
+    }
+
+    @After
+    fun teardown() {
+        mockWebServer.shutdown()
+    }
+
+}

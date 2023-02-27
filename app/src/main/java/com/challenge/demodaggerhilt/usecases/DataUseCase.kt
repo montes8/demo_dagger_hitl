@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import javax.inject.Inject
 
-
 class DataUseCase (private val iAppRepositoryNetwork: ListenerLocalDataSource) {
 
       fun getList(): Flow<List<String>> = iAppRepositoryNetwork.getList()

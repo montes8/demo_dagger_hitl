@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -32,12 +33,16 @@ class ListIntegrationKoinWebServerTest {
 
     lateinit var mainRepository: DataNetwork
     lateinit var mainUseCase: DataUseCase
+    lateinit var mainViewModel: ListViewModel
     lateinit var mockWebServer: MockWebServer
     lateinit var apiService: ServiceApi
     lateinit var gson: Gson
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
 
     @Before
     fun setup() {
@@ -48,6 +53,7 @@ class ListIntegrationKoinWebServerTest {
             .build().create(ServiceApi::class.java)
           mainRepository = DataNetwork(apiService)
           mainUseCase = DataUseCase(mainRepository)
+        mainViewModel = ListViewModel(mainUseCase,coroutineTestRule.dispatcher)
     }
 
     @Test
@@ -55,7 +61,7 @@ class ListIntegrationKoinWebServerTest {
         val mockResponse = MockResponse()
         mockWebServer.enqueue(mockResponse.setBody(testListJson))
         val response = mainUseCase.getListService()
-        Assert.assertEquals(true, response.body() == readAndParseFileFromAssets(testListJson))
+        assertEquals(true, response.body() == readAndParseFileFromAssets(testListJson))
         }
 
 

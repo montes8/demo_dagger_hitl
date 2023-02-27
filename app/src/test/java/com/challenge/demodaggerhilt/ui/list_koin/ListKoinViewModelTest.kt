@@ -36,6 +36,7 @@ class ListKoinViewModelTest{
     fun listenServer() {
         Assert.assertTrue(true)
     }
+
     @Test
     fun `get list of server`() = runBlockingTest{
         `when`(appUseCase.getList()).thenReturn(testList)

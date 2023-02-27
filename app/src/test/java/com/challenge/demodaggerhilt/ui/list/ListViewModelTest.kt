@@ -6,6 +6,7 @@ import com.challenge.demodaggerhilt.utils.FakeDataNetwork
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Test
@@ -22,9 +23,9 @@ class ListViewModelTest {
         val repository = DataUseCase(FakeDataNetwork())
         val vm = ListViewModel(repository)
 
-      /*  vm.list.collect{
+        vm.list.map {
             Assert.assertEquals(testList,it)
-        }*/
+        }
     }
 
 }

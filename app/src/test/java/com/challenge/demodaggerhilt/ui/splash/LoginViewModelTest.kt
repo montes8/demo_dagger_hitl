@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.*
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -25,7 +25,7 @@ class LoginViewModelTest{
     val coroutineTestRule = CoroutineTestRule()
 
      @Test
-     fun `get load login`() = runBlockingTest{
+     fun `get load login`() = runBlocking{
          val vm = LoginBasicViewModel(coroutineTestRule.dispatcher)
          vm.successUserLiveData.observeForever(observer)
          vm.getUser("gabbi","gabbi")

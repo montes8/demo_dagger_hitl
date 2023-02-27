@@ -5,19 +5,11 @@ import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.getOrAwaitValue
 import com.challenge.demodaggerhilt.repository.ServiceApi
 import com.challenge.demodaggerhilt.repository.adapter.MapperResponse
-import com.challenge.demodaggerhilt.repository.adapter.getResultOrThrowException
 import com.challenge.demodaggerhilt.repository.api.DataHiltNetwork
-import com.challenge.demodaggerhilt.repository.api.DataNetwork
-import com.challenge.demodaggerhilt.ui.ListViewModel
 import com.challenge.demodaggerhilt.usecases.DataHiltUseCase
-import com.challenge.demodaggerhilt.usecases.DataUseCase
 import com.challenge.demodaggerhilt.utils.testList
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -25,7 +17,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
 
@@ -56,7 +47,7 @@ class ListIntegrationHiltViewModelTest {
     }
 
     @Test
-    fun getAllListTest() = runBlockingTest {
+    fun getAllListTest() = runBlocking {
         Mockito.`when`(apiService.getListHilt()).thenReturn(MapperResponse.from(Response.success(testList)))
             mainViewModel.getList()
             val result = mainViewModel.successListLiveData.getOrAwaitValue()

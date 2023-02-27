@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.challenge.demodaggerhilt.CoroutineTestRule
 import com.challenge.demodaggerhilt.usecases.AppUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
@@ -31,7 +32,7 @@ class AppViewModelTest{
     val coroutineTestRule = CoroutineTestRule()
 
      @Test
-     fun `get load login`() = runBlockingTest{
+     fun `get load login`() = runBlocking{
          val vm = AppViewModel(loginUseCase,coroutineTestRule.dispatcher)
          `when`(loginUseCase.getUserTwo()).thenReturn(true)
          vm.successUserTwoLiveData.observeForever(observer)

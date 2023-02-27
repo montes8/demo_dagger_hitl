@@ -8,6 +8,7 @@ import com.challenge.demodaggerhilt.usecases.DataHiltUseCase
 import com.challenge.demodaggerhilt.usecases.DataKoinUseCase
 import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.*
@@ -34,7 +35,7 @@ class ListHiltViewModelTest{
     val coroutineTestRule = CoroutineTestRule()
 
     @Test
-    fun `get list of server`() = runBlockingTest{
+    fun `get list of server`() = runBlocking{
         `when`(appUseCase.getList()).thenReturn(testList)
        val vm = ListHiltViewModel(appUseCase,coroutineTestRule.dispatcher)
         vm.successListLiveData.observeForever(observer)

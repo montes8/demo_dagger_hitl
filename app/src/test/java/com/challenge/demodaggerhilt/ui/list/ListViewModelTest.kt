@@ -7,6 +7,7 @@ import com.challenge.demodaggerhilt.utils.testList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Test
@@ -19,7 +20,7 @@ class ListViewModelTest {
 
 
     @Test
-    fun `Listen list Flow emits from the server`() = runBlockingTest {
+    fun `Listen list Flow emits from the server`(): Unit = runBlocking {
         val repository = DataUseCase(FakeDataNetwork())
         val vm = ListViewModel(repository)
 

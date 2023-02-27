@@ -26,7 +26,6 @@ import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class ListIntegrationKoinWebServerTest {
